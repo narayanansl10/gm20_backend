@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>iisnode logs</title>
+    <style type="text/css">
+        body
+        {
+            font-family: "Trebuchet MS" , Arial, Helvetica, sans-serif;
+        }
+        table
+        {
+            border-collapse: collapse;
+        }
+        td, th
+        {
+            border: 1px solid lightgray;
+            padding: 3px 7px 2px 7px;
+        }
+        th
+        {
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: Gray;
+            color: #ffffff;
+        }
+        td.stderr
+        {
+            color: Red;
+        }
+    </style>
+</head>
+<body>
+    <table id="logFilesTable">
+        <tr>
+            <th>
+                Computer name
+            </th>
+            <th>
+                PID
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Link
+            </th>
+        </tr>
+    </table>
+    <p id="lastUpdated"></p>
+    <script type="text/javascript">
+
+        // this is replaced with actual data at runtime by code in interceptor.js
+        var logFiles = [{"file":"WIN-594FMFFMIME-2276-stderr-1549727939651.txt","computername":"WIN-594FMFFMIME","pid":2276,"type":"stderr","created":1549727939651},{"file":"WIN-594FMFFMIME-2276-stdout-1549727939645.txt","computername":"WIN-594FMFFMIME","pid":2276,"type":"stdout","created":1549727939645},{"file":"WIN-594FMFFMIME-2332-stderr-1549720934006.txt","computername":"WIN-594FMFFMIME","pid":2332,"type":"stderr","created":1549720934006},{"file":"WIN-594FMFFMIME-2332-stdout-1549720934001.txt","computername":"WIN-594FMFFMIME","pid":2332,"type":"stdout","created":1549720934001},{"file":"WIN-594FMFFMIME-3244-stderr-1549752691157.txt","computername":"WIN-594FMFFMIME","pid":3244,"type":"stderr","created":1549752691157},{"file":"WIN-594FMFFMIME-3244-stdout-1549752691152.txt","computername":"WIN-594FMFFMIME","pid":3244,"type":"stdout","created":1549752691152},{"file":"WIN-594FMFFMIME-3276-stderr-1549733879437.txt","computername":"WIN-594FMFFMIME","pid":3276,"type":"stderr","created":1549733879437},{"file":"WIN-594FMFFMIME-3276-stdout-1549733879432.txt","computername":"WIN-594FMFFMIME","pid":3276,"type":"stdout","created":1549733879432},{"file":"WIN-594FMFFMIME-3648-stderr-1549754896798.txt","computername":"WIN-594FMFFMIME","pid":3648,"type":"stderr","created":1549754896798},{"file":"WIN-594FMFFMIME-3648-stdout-1549754896792.txt","computername":"WIN-594FMFFMIME","pid":3648,"type":"stdout","created":1549754896792},{"file":"WIN-594FMFFMIME-4012-stderr-1549767092531.txt","computername":"WIN-594FMFFMIME","pid":4012,"type":"stderr","created":1549767092531},{"file":"WIN-594FMFFMIME-4012-stdout-1549767092526.txt","computername":"WIN-594FMFFMIME","pid":4012,"type":"stdout","created":1549767092526},{"file":"WIN-594FMFFMIME-4392-stderr-1549763671458.txt","computername":"WIN-594FMFFMIME","pid":4392,"type":"stderr","created":1549763671458},{"file":"WIN-594FMFFMIME-4392-stdout-1549763671452.txt","computername":"WIN-594FMFFMIME","pid":4392,"type":"stdout","created":1549763671452},{"file":"WIN-594FMFFMIME-5464-stderr-1549706160884.txt","computername":"WIN-594FMFFMIME","pid":5464,"type":"stderr","created":1549706160884},{"file":"WIN-594FMFFMIME-5464-stdout-1549706160877.txt","computername":"WIN-594FMFFMIME","pid":5464,"type":"stdout","created":1549706160877},{"file":"WIN-594FMFFMIME-6668-stderr-1549761912304.txt","computername":"WIN-594FMFFMIME","pid":6668,"type":"stderr","created":1549761912304},{"file":"WIN-594FMFFMIME-6668-stdout-1549761912298.txt","computername":"WIN-594FMFFMIME","pid":6668,"type":"stdout","created":1549761912298},{"file":"WIN-594FMFFMIME-6848-stderr-1549731995312.txt","computername":"WIN-594FMFFMIME","pid":6848,"type":"stderr","created":1549731995312},{"file":"WIN-594FMFFMIME-6848-stdout-1549731995306.txt","computername":"WIN-594FMFFMIME","pid":6848,"type":"stdout","created":1549731995306},{"file":"WIN-594FMFFMIME-740-stderr-1549716748082.txt","computername":"WIN-594FMFFMIME","pid":740,"type":"stderr","created":1549716748082},{"file":"WIN-594FMFFMIME-740-stdout-1549716748075.txt","computername":"WIN-594FMFFMIME","pid":740,"type":"stdout","created":1549716748075}];
+        var lastUpdated = 1549767094373;
+        var date = new Date();
+
+        date.setTime(lastUpdated);
+        document.getElementById('lastUpdated').innerHTML = 'Index was last updated ' + date;
+
+        logFiles.sort(function (a, b) {
+            return b.created - a.created;
+        });
+
+        var logFilesTable = document.getElementById("logFilesTable");
+        for (var i = 0; i < logFiles.length; i++) {
+            var logFile = logFiles[i];
+            date.setTime(logFile.created);
+            var row = logFilesTable.insertRow(-1);
+            var computerNameCell = row.insertCell(0);
+            var pidCell = row.insertCell(1);
+            var typeCell = row.insertCell(2);
+            var dateCell = row.insertCell(3);
+            var logCell = row.insertCell(4);
+            computerNameCell.innerHTML = logFile.computername;
+            pidCell.innerHTML = logFile.pid.toString();
+            typeCell.innerHTML = logFile.type;
+            typeCell.setAttribute('class', logFile.type);
+            dateCell.innerHTML = date.toString();
+            logCell.innerHTML = '<a href="' + logFile.file + '">log</a>';
+        };
+
+    </script>
+</body>
+</html>
