@@ -126,7 +126,8 @@ if (production) {
 }
 else {
     app.get('/', (req, res) => {
-        res.send('HELLO WORLD!');
+        //res.send('HELLO WORLD!');
+        res.redirect('http://172.16.4.58:4200')
     });
 
     app.get('*', (req, res) => {

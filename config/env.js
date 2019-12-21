@@ -3,6 +3,7 @@ config = {
 
         //Local DB
         name: 'mongodb://127.0.0.1:27017/gm20'
+        //name: 'mongodb://172.16.4.58:27017/gm20'
 
         //MLAB DB
         //name: 'mongodb://admin:gyanmitra19@ds155396.mlab.com:55396/gyanmitra19'

@@ -8,8 +8,8 @@ var ObjectId = require('mongoose').Types.ObjectId;
 let smtpTransport = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "arun10072000@gmail.com",//gm20 - changes need to be accomodated
-        pass: "Sarunlks123@"
+        user: "",//gm20 - changes need to be accomodated
+        pass: ""
     }
 });
 
