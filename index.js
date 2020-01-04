@@ -52,15 +52,15 @@ const certificate = require('./routes/certificate')
 
 //Running Port
 const port = process.env.PORT || 3000;
-var production = false;
+var production = true;
 
 // CORS Middleware
 if (production) {
-    //app.use(cors({ origin: 'http://www.gyanmitra19.mepcoeng.ac.in' }));
-    //app.use(cors({ origin: 'http://localhost:3000' }));
-   // app.use(cors({ origin: 'http://www.gyanmitra19.mepcoeng.ac.in' }));
-   // app.use(cors({ origin: 'http://172.16.16.151' }));
-   // app.use(cors({origin: 'https://gyanmitra19.herokuapp.com/'}))
+    app.use(cors({ origin: 'http://www.gyanmitra20.mepcoeng.ac.in' }));
+    app.use(cors({ origin: 'http://localhost:3000' }));
+   app.use(cors({ origin: 'http://www.gyanmitra20.mepcoeng.ac.in' }));
+   app.use(cors({ origin: 'http://172.16.16.151' }));
+   //app.use(cors({origin: 'https://gyanmitra19.herokuapp.com/'}))
    //app.use(cors({ origin: 'http://localhost:3000' }));
 
 } else {
