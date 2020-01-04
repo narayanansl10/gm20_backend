@@ -12,8 +12,8 @@ const bcrypt = require('bcryptjs')
 let smtpTransport = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "gyanmitra19@gmail.com",
-        pass: "gyan94860"
+        user: "gyanmitra20@mepcoeng.ac.in",//"gyanmitra19@gmail.com",
+        pass: "Gyanmitra2020MEPCO"//"gyan94860"
     }
 });
 
@@ -104,7 +104,7 @@ router.post('/forgotPassword', (req, res) => {
                                         msg: error
                                     })
                                 } else {
-                                    link = "http://www.gyanmitra19.mepcoeng.ac.in/user/" + "resetPassword/" + token;
+                                    link = "http://www.gyanmitra20.mepcoeng.ac.in/user/" + "resetPassword/" + token;
                                     let mailOptions = {
                                         to: req.body.email_id,
                                         subject: "Reset your GyanMitra19 Password",

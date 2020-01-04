@@ -29,7 +29,7 @@ router.post('/create', (req, res, next) => {
                 year_id: req.body.year_id,
                 gender: req.body.gender,
                 mobile_number: req.body.mobile_number,
-                activated: req.body.activated,
+                activated: true,
                 type: req.body.type,
                 password: req.body.password,
                 registration_mode: req.body.registration_mode,
@@ -57,8 +57,9 @@ router.post('/create', (req, res, next) => {
                             link = "localhost:3000/registration/" + "activate/" + activationUser._id + "/" + activationUser.activation_code;
                             let mailOptions = {
                                 to: req.body.email_id,
-                                subject: "Please confirm your Email account",
-                                html: "Hello,<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to Activate</a>"
+                                subject: "Welcome To Gyanmitra2020",
+                                //html: "Hello,<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to Activate</a>"
+                                html: "Hello, "+activationUser.name+"Thank you for showing interest to participate in Gyanmitra 2020. Please visit <a href=gyanmitra20.mepcoeng.ac.in>gyanmitra20.mepcoeng.ac.in</a> for more details. " 
                             }
                             console.log("Add User Phase Mail")
                             smtpTransport.sendMail(mailOptions, function (error, response) {
