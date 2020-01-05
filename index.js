@@ -56,10 +56,10 @@ var production = true;
 
 // CORS Middleware
 if (production) {
-    app.use(cors({ origin: 'http://www.gyanmitra20.mepcoeng.ac.in' }));
+    //app.use(cors({ origin: 'http://www.gyanmitra20.mepcoeng.ac.in' }));
     app.use(cors({ origin: 'http://localhost:3000' }));
-   app.use(cors({ origin: 'http://www.gyanmitra20.mepcoeng.ac.in' }));
-   app.use(cors({ origin: 'http://172.16.16.151' }));
+   //app.use(cors({ origin: 'http://www.gyanmitra20.mepcoeng.ac.in' }));
+   //app.use(cors({ origin: 'http://172.16.16.151' }));
    //app.use(cors({origin: 'https://gyanmitra19.herokuapp.com/'}))
    //app.use(cors({ origin: 'http://localhost:3000' }));
 
@@ -126,8 +126,8 @@ if (production) {
 }
 else {
     app.get('/', (req, res) => {
-        //res.send('HELLO WORLD!');
-        res.redirect('http://localhost:4200')
+        res.send('HELLO WORLD!');
+        //res.redirect('http://localhost:4200')
     });
 
     app.get('*', (req, res) => {
