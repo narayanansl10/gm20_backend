@@ -93,7 +93,7 @@ router.post("/uploadImage/:id", (request, res) => {
   var upload = multer({
     storage: multer.diskStorage({
       destination: function(req, file, cb) {
-        cb(null, "./assests/images/events/");
+        cb(null, "./dist/assets/images/events/");
       },
       filename: function(req, file, cb) {
         cb(null, request.params.id + path.extname(file.originalname));

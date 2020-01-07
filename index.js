@@ -57,7 +57,8 @@ var production = true;
 // CORS Middleware
 if (production) {
     //app.use(cors({ origin: 'http://www.gyanmitra20.mepcoeng.ac.in' }));
-    app.use(cors({ origin: 'http://localhost:3000' }));
+    app.use(cors({ origin: 'http://172.16.16.30:3000' }));
+    app.use(cors({ origin: 'http://172.16.16.30:80' }));
    //app.use(cors({ origin: 'http://www.gyanmitra20.mepcoeng.ac.in' }));
    //app.use(cors({ origin: 'http://172.16.16.151' }));
    //app.use(cors({origin: 'https://gyanmitra19.herokuapp.com/'}))
@@ -71,7 +72,7 @@ if (production) {
 
 
 // Set Static Folder
-app.use('/assests', express.static('assests'));
+app.use('/assets', express.static('assets'));
 app.use('/public', express.static('../GyanMitra19-AngularJs/public'));
 
 // Body Parser Middleware
