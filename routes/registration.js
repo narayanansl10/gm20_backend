@@ -151,11 +151,11 @@ router.post('/create', (req, res, next) => {
 
 router.get('/generateGMID', (req, res) => {
     User.find({
-        activated:true,
+        cart_paid:true,
         gmID: ""
     }).exec((err, docs) => {
         var respo = []
-        console.log(docs)
+        //console.log(docs)
        /* docs.forEach(element => {
             var _id = element._id.toString()
             User.updateOne({
@@ -166,15 +166,27 @@ router.get('/generateGMID', (req, res) => {
                     }
                 })
         })*/
+        var isAlpha = function(ch){
+            return /^[A-Z]$/i.test(ch);
+        }
         for(i=0;i<docs.length;i++)
         {
+            //var name = docs[i].name.toUpperCase().substring(0, 4)
+            var name="";
+            var count = 0;
+            for(j=0;count<3;j++){
+                if(isAlpha(docs[i].name[j])){
+                    name+=docs[i].name[j].toUpperCase();
+                    count+=1;
+                }
+            }
             var _id = docs[i]._id.toString()
-            console.log(docs[i].name)
+            console.log(docs[i].name+": "+ "GM20_" + name + docs[i].mobile_number.substring(docs[i].mobile_number.length-5,docs[i].mobile_number.length))
             User.updateOne({
                 _id: ObjectId(docs[i]._id)
             }, {
                     $set: {
-                        gmID: "GM20_" + docs[i].name.toLowerCase().substring(0, 4) + docs[i].mobile_number.substring(docs[i].mobile_number.length-5,docs[i].mobile_number.length)
+                        gmID: "GM20_" + name + docs[i].mobile_number.substring(docs[i].mobile_number.length-5,docs[i].mobile_number.length)
                     }
                 },(err,docs)=>{console.log(err)})
         }

@@ -79,8 +79,12 @@ router.get('/getDayCount', (req, res) => {
     }).exec((err, docs) => {
         var eventStatus = {};
         var events = [];
+        //console.log(docs);
         docs.forEach((doc) => {
+            console.log(doc);
             if (events.includes(doc.user_id._id)) {
+                console.log(doc.user_id._id);
+                //console.log("if statement");
                 if (doc.event_id.category_id.name == "Workshop") {
                     eventStatus[doc.user_id._id]["Workshop"] = true;
                 } else {
@@ -88,6 +92,7 @@ router.get('/getDayCount', (req, res) => {
                 }
             } else {
                 var reportData = {};
+                console.log("here");
                 reportData["Name"] = doc.user_id.name
                 reportData["Paid"] = doc.user_id.cart_paid
                 if (doc.event_id.category_id.name == "Workshop") {
