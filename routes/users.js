@@ -142,36 +142,36 @@ router.post('/uploadCartDDImage/:id', (req, res) => {
     User.updateMany({
         _id: req.params.id
     }, {
-            $set: {
-                cart_dd_image: 'Awaiting Confirmation'
-            }
-        }, (err, docs) => {
-            if (err) {
-                res.json({
-                    error: true,
-                    msg: err
-                })
-            }
-        })
+        $set: {
+            cart_dd_image: 'Awaiting Confirmation'
+        }
+    }, (err, docs) => {
+        if (err) {
+            res.json({
+                error: true,
+                msg: err
+            })
+        }
+    })
     EventRegistration.updateMany({
         user_id: req.params.id
     }, {
-            $set: {
-                status: 'Verifying Payment'
-            }
-        }, (err, docs) => {
-            if (err) {
-                res.json({
-                    error: true,
-                    msg: err
-                })
-            } else {
-                res.json({
-                    error: false,
-                    msg: 'Request successfully Sent!'
-                })
-            }
-        })
+        $set: {
+            status: 'Verifying Payment'
+        }
+    }, (err, docs) => {
+        if (err) {
+            res.json({
+                error: true,
+                msg: err
+            })
+        } else {
+            res.json({
+                error: false,
+                msg: 'Request successfully Sent!'
+            })
+        }
+    })
 })
 
 router.get('/participants/search', (req, res, next) => {
@@ -267,7 +267,7 @@ router.post('/confirmPayment', function (req, res) {
 });
 
 router.post('/confirmPaymentOffline', function (req, res) {
-
+    const UserId = req.body._id;
     User.findByIdAndUpdate(req.body._id, {
         confirmed: true,
         cart_paid: true
@@ -289,20 +289,34 @@ router.post('/confirmPaymentOffline', function (req, res) {
                 EventRegistration.findByIdAndUpdate(req.body.event_id, { $set: { status: "Paid" } }, { new: true }, (err, doc) => {
                 })
             }
-            let newPayment = new Payment({
-                mode_of_payment: "Offline",
-                status: "Paid",
-                user_id: req.body._id,
-                amount: docs.event_id.amount,
-                payment_status: "Paid",
-                transaction_id: result.gmID
-            })
-
-            newPayment.save((err, doc) => {
-                if (!err) {
+            //console.log("HEre")
+            Payment.find({ user_id: UserId }, (err, doc) => {
+                if (doc.length === 0) {
+                    let newPayment = new Payment({
+                        mode_of_payment: "Offline",
+                        status: "Paid",
+                        user_id: req.body._id,
+                        amount: docs.event_id.amount,
+                        payment_status: "Paid",
+                        transaction_id: 'N/A'
+                    })
+                    //console.log(newPayment)
+                    newPayment.save((err, doc) => {
+                        if (!err) {
+                            //console.log(doc)
+                            res.json({
+                                error: false,
+                                msg: 'Confirmed Payment Successfully'
+                            })
+                        }
+                        else {
+                            console.log(err)
+                        }
+                    })
+                } else {
                     res.json({
                         error: false,
-                        msg: 'Confirmed Payment Successfully'
+                        msg: 'Already Added to payments'
                     })
                 }
             })
@@ -334,22 +348,22 @@ router.post('/confirmCart', function (req, res) {
                     EventRegistration.updateMany({
                         user_id: req.body.user_id
                     }, {
-                            $set: {
-                                status: 'Payment pending'
-                            }
-                        }, (err) => {
-                            if (err) {
-                                res.json({
-                                    error: true,
-                                    msg: 'Unable to Confirm Cart. Try Again'
-                                })
-                            } else {
-                                res.json({
-                                    error: false,
-                                    msg: 'Your cart has been successfully confirmed'
-                                })
-                            }
-                        })
+                        $set: {
+                            status: 'Payment pending'
+                        }
+                    }, (err) => {
+                        if (err) {
+                            res.json({
+                                error: true,
+                                msg: 'Unable to Confirm Cart. Try Again'
+                            })
+                        } else {
+                            res.json({
+                                error: false,
+                                msg: 'Your cart has been successfully confirmed'
+                            })
+                        }
+                    })
                 }
             })
         }
