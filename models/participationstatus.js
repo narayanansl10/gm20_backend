@@ -7,9 +7,6 @@ const ParticipationStatusSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
-    },
-    score: {
-        type: String
     }
 });
 ParticipationStatusSchema.plugin(pagination);

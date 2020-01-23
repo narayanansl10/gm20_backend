@@ -190,6 +190,7 @@ router.get('/getRegistrations/:id/:type', (req, res) => {
                 return false;
             }
         });
+        console.log(docs);
         res.json(docs);
     })
 })
@@ -780,6 +781,30 @@ router.get('/checkEventRegistrationStatus/:event_id/:user_id', function (req, re
         } else {
             res.json({
                 registered: true
+            })
+        }
+    })
+});
+
+router.get('/UpdateParticipationStatus/:event_id/:user_id/:status', function (req,res){
+    const Status = req.params.status
+    const eventId = req.params.event_id
+    const userId = req.params.user_id
+    console.log(eventId);
+    console.log(userId);
+    Registration.findOneAndUpdate({
+        event_id: eventId,
+        user_id: userId
+    }, {
+        $set:{participation:Status}
+    },function(err,docs) {
+        if(docs.length == 0) {
+            res.json({
+                updated: false
+            })
+        } else {
+            res.json({
+                updated: true
             })
         }
     })

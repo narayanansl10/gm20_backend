@@ -186,7 +186,8 @@ router.get('/generateGMID', (req, res) => {
                 _id: ObjectId(docs[i]._id)
             }, {
                     $set: {
-                        gmID: "GM20_" + name + docs[i].mobile_number.substring(docs[i].mobile_number.length-5,docs[i].mobile_number.length)
+                        //gmID: "GM20_" + name + docs[i].mobile_number.substring(docs[i].mobile_number.length-5,docs[i].mobile_number.length)
+                        gmID: "GM20_"
                     }
                 },(err,docs)=>{console.log(err)})
         }
